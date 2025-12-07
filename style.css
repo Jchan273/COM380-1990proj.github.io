@@ -1,9 +1,63 @@
-body {
-  background-color: #000000;
-  color: #00ff00;
-  font-family: "Courier New", monospace;
+/* ...existing code... */
+:root {
+  --banner-height: 100px;
 }
 
-h1 {
-  text-align: center;
+/* keep black background with faint grid lines */
+body {
+  background: #000;
+  color: #00ff00;
+  font-family: "Press Start 2P", "Courier New", monospace;
+  margin: 0;
+  padding-top: var(--banner-height);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* faint grid to simulate CRT-era wallpaper */
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0 1px, transparent 1px 20px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.02) 0 1px, transparent 1px 20px);
+  background-size: 20px 20px, 20px 20px;
+  overflow-x: hidden;
 }
+
+/* subtle scanline overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0,0,0,0) 0 2px,
+    rgba(0,0,0,0.12) 2px 4px
+  );
+  mix-blend-mode: overlay;
+  opacity: 0.6;
+}
+
+/* Banner title: fixed, centered at the top */
+h1.banner {
+  position: fixed;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: min(96%, 1100px);
+  box-sizing: border-box;
+  margin: 0;
+  padding: 14px 18px;
+  border: 4px solid #00ff00;
+  background: linear-gradient(180deg, rgba(0,0,0,0.75), rgba(0,0,0,0.45));
+  text-align: center;
+  color: #00ff00;
+  font-size: clamp(18px, 4.5vw, 40px);
+  text-shadow:
+    0 0 6px #00ff00,
+    0 0 20px rgba(0,255,0,0.12);
+  box-shadow:
+    0 0 24px rgba(0,255,0,0.10),
+    inset 0 0 10px rgba(0,255,0,0.04);
+}
+
+/* ...existing code... */
